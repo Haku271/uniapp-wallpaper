@@ -1,0 +1,1 @@
+{"version":3,"file":"bsse.js","sources":["D:/install/Core/HBuilderX/plugins/uniapp-cli-vite/uniPage:/Y29tbW9uL3N0eWxlL2Jzc2UvYnNzZS52dWU"],"sourcesContent":["import MiniProgramPage from 'E:/uniapp/壁纸案例/common/style/bsse/bsse.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;AACA,GAAG,WAAW,eAAe;"}
