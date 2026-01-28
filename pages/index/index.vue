@@ -1,117 +1,192 @@
 <template>
   <view class="home pageBg">
-    <custom-nav-bar title="推荐"></custom-nav-bar>
-    <view class="banner">
-      <swiper indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#fff" autoplay circular>
-        <swiper-item v-for="item in bannerList" :key="item._id">
-          <image :src="item.picurl" mode="aspectFill"></image>
-        </swiper-item>
-      </swiper>
-    </view>
-
-    <view class="notice">
-      <view class="left">
-        <uni-icons type="sound-filled" size="20"></uni-icons>
-        <view class="text">公告</view>
-      </view>
-      <view class="center">
-        <swiper autoplay vertical interval="1500" duration="300" circular>
-          <swiper-item v-for="item in noticeList" :key="item._id">
-            <navigator url="/pages/notice/detail">{{item.title}}</navigator>
-          </swiper-item>
-        </swiper>
-      </view>
-      <view class="right">
-        <uni-icons type="right" color="#333" size="16"></uni-icons>
-      </view>
-    </view>
-
-    <view class="select">
-      <common-title>
-        <template #name>每日推荐</template>
-        <template #custom>
-          <view class="date">
-            <uni-icons type="calendar" size="20"></uni-icons>
-            <uni-dateformat :date="Date.now()" format="dd号"></uni-dateformat>
+    <mescroll-uni
+      ref="mescrollRef"
+      @up="upCallback"
+      :up="upOption"
+      :down="downOption"
+      :height="scrollHeight"
+    >
+      <custom-nav-bar :showSearch="true"></custom-nav-bar>
+      <view class="home-filter">
+        <view class="item" @tap="To()">
+          <view class="home-filter-item-icon">
+            <span class="material-symbols-outlined" style="color: #9484dc">
+              kid_star
+            </span>
           </view>
-        </template>
-      </common-title>
-      <view class="center">
-        <scroll-view scroll-x>
-          <navigator url="/pages/preview/preview">
-            <view v-for="item in randomList" :key='item._id' class="box">
-              <image :src="item.smallPicurl" mode="aspectFill"></image>
+          <view class="home-filter-text">热门</view>
+        </view>
+        <view class="item" @tap="To()">
+          <view class="home-filter-item-icon">
+            <span class="material-symbols-outlined" style="color: #f54b85"> update </span>
+          </view>
+          <view class="home-filter-text">最新</view>
+        </view>
+        <view class="item" @tap="To()">
+          <view class="home-filter-item-icon">
+            <span class="material-symbols-outlined" style="color: #30fba9">
+              category
+            </span>
+          </view>
+          <view class="home-filter-text">类别</view>
+        </view>
+        <view class="item" @tap="To()">
+          <view class="home-filter-item-icon">
+            <span class="material-symbols-outlined" style="color: #fdcd45">
+              crown
+            </span>
+          </view>
+          <view class="home-filter-text">高级</view>
+        </view>
+      </view>
+
+      <view class="select">
+        <common-title>
+          <template #name>精选</template>
+          <template #custom>
+            <view
+              class="refresh-btn"
+              hover-class="refresh-btn-hover"
+              @tap="getRandomList"
+            >
+              <span class="material-symbols-outlined icon3"> refresh </span>
+              换一批
             </view>
-          </navigator>
-        </scroll-view>
+          </template>
+        </common-title>
+        <view class="center">
+          <scroll-view scroll-x :show-scrollbar="false">
+            <view
+              v-for="item in randomList"
+              :key="item._id"
+              class="box"
+              @click="gotoPreview(item)"
+            >
+              <image :src="item.download_url" mode="aspectFill"></image>
+            </view>
+          </scroll-view>
+        </view>
       </view>
-    </view>
 
-    <view class="theme">
-      <common-title>
-        <template #name>专题精选</template>
-        <template #custom>
-          <navigator url="/pages/classify/classify" class="more" open-type="reLaunch">More+</navigator>
-        </template>
-      </common-title>
+      <view class="theme">
+        <common-title>
+          <template #name>热门</template>
+        </common-title>
 
-      <view class="content">
-        <theme-item v-for="item in classifyList" :key="item._id" :item="item"></theme-item>
-        <theme-item :isMore="true"></theme-item>
+        <view class="content">
+          <theme-item
+            v-for="item in List"
+            :key="item.id"
+            :item="item"
+            @click="gotoThemePreview"
+          ></theme-item>
+        </view>
       </view>
-    </view>
+    </mescroll-uni>
   </view>
 </template>
 
 <script setup>
-  import {ref} from "vue"
-  import {apiGetBanner,apigetDayRandom,apinotice,apiclassify,apiwall} from '@/api/apis.js'
-  const bannerList = ref([])
-  const randomList = ref([])
-  const noticeList = ref([])
-  const classifyList = ref([])
+import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
+import { list, randomData } from '/api/mock.js'
+import MescrollUni from '@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-uni.vue'
+import MescrollEmpty from '@/uni_modules/mescroll-uni/components/mescroll-empty/mescroll-empty.vue'
+import commonTitle from '@/components/common-title/common-title'
+import {
+  upCallback,
+  upOption,
+  gotoThemePreview,
+  scrollHeight,
+  downOption,
+  List,
+} from '/hooks/mescroll.js'
+const randomList = ref([]) // 精选（随机）
 
-const getBanner = async ()=>{
-  let res = await apiGetBanner()
-  bannerList.value = res.data
+const To = () => {
+  uni.navigateTo({ url: '/pages/popular/popular' })
 }
-const getDayRandom = async ()=>{
-  let res = await apigetDayRandom()
+
+
+
+// 获取随机列表（精选）
+const getRandomList = async () => {
+  const res = await randomData()
   randomList.value = res.data
+  console.log(res)
 }
 
-const getNotice = async ()=>{
-  let res = await apinotice()
-  noticeList.value = '公告'
-}
-const getclassify = async ()=>{
-  let res = await apiclassify({select:true})
-  classifyList.value = res.data
+// 点击精选图片，存储精选数据并跳转
+const gotoPreview = (item) => {
+  uni.setStorageSync('storgwallList', randomList.value)
+  uni.navigateTo({
+    url: `/pages/preview/preview?id=${item.id}`,
+  })
 }
 
-getBanner()
-getDayRandom()
-getNotice()
-getclassify()
+
+onLoad(() => {
+  getRandomList()
+})
 </script>
 
 <style lang="scss" scoped>
+.icon3 {
+  font-size: 36rpx;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 5rpx;
+  transition: opacity 0.2s;
+  // height: 50rpx;
+  .icon3 {
+    transition: transform 0.3s ease;
+    margin-top: 5rpx;
+  }
+}
+
+.refresh-btn-hover {
+  opacity: 0.6;
+
+  .icon3 {
+    transform: rotate(180deg);
+  }
+}
+
 .home {
-  .banner {
-    width: 750rpx;
-    padding: 30rpx 0;
-    swiper {
-      width: 750rpx;
-      height: 340rpx;
-      &-item {
-        width: 100%;
-        height: 100%;
-        padding: 0 30rpx;
-        image {
-          width: 100%;
-          height: 100%;
-          border-radius: 10rpx;
+  // min-height: 100vh;
+  .home-filter {
+    display: flex;
+    width: 100%;
+    height: 160rpx;
+    align-items: center;
+    padding: 0rpx 90rpx;
+    justify-content: space-between;
+    margin-top: 50rpx;
+    .item {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .home-filter-item-icon {
+        background-color: #282828;
+        border-radius: 13rpx;
+        // padding: 4rpx 7rpx 0rpx 7rpx;
+        height: 60rpx;
+        width: 60rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .material-symbols-outlined {
+          font-size: 50rpx;
         }
+      }
+      .home-filter-text {
+        margin-top: 5rpx;
+        font-size: 25rpx;
+        text-align: center;
       }
     }
   }

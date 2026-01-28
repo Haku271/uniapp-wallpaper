@@ -1,35 +1,28 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const utils_sys = require("../../utils/sys.js");
-if (!Array) {
-  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  _easycom_uni_icons2();
-}
-const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
-if (!Math) {
-  _easycom_uni_icons();
-}
 const _sfc_main = {
   __name: "custom-nav-bar",
   props: {
-    title: {
-      type: String,
-      default: "推荐"
+    showSearch: {
+      type: Boolean,
+      default: false
     }
   },
   setup(__props) {
+    const To = () => {
+      common_vendor.index.navigateTo({ url: "/pages/search/search" });
+    };
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.unref(utils_sys.statusBarHeight)() + "px",
-        b: common_vendor.t(__props.title),
-        c: common_vendor.p({
-          type: "search",
-          color: "#888",
-          size: "18"
-        }),
+        b: __props.showSearch
+      }, __props.showSearch ? {
+        c: common_vendor.o(($event) => To())
+      } : {}, {
         d: common_vendor.unref(utils_sys.titleBarHeight)() + "px",
         e: common_vendor.unref(utils_sys.navBarHeight)() + "px"
-      };
+      });
     };
   }
 };

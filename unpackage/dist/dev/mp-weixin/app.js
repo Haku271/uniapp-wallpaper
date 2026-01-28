@@ -3,27 +3,35 @@ Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
 if (!Math) {
   "./pages/index/index.js";
-  "./components/common-title/common-title.js";
   "./pages/classify/classify.js";
   "./pages/user/user.js";
-  "./pages/classlist/classlist.js";
+  "./pages/popular/popular.js";
   "./pages/preview/preview.js";
-  "./pages/notice/notice.js";
-  "./pages/notice/detail.js";
+  "./pages/classify-edit/EditImages.js";
+  "./pages/catImg/catImg.js";
+  "./pages/search/search.js";
+  "./pages/classify-text/classify-text.js";
+  "./pages/login/login.js";
+  "./pages/favorite/favorite.js";
+  "./pages/download/download.js";
+  "./pages/agreement/service.js";
+  "./pages/agreement/privacy.js";
 }
 const _sfc_main = {
+  globalData: {
+    api: "sk-qocnpgkzzysqvqwesudilnumtygkyxrxgpjnzvjeuriwhffl"
+  },
   onLaunch: function() {
-    common_vendor.index.__f__("log", "at App.vue:4", "App Launch");
   },
   onShow: function() {
-    common_vendor.index.__f__("log", "at App.vue:7", "App Show");
   },
   onHide: function() {
-    common_vendor.index.__f__("log", "at App.vue:10", "App Hide");
   }
 };
+const MescrollEmpty = () => "./uni_modules/mescroll-uni/components/mescroll-empty/mescroll-empty.js";
 function createApp() {
   const app = common_vendor.createSSRApp(_sfc_main);
+  app.component("mescroll-empty", MescrollEmpty);
   return {
     app
   };

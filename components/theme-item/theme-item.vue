@@ -1,38 +1,29 @@
 <template>
-  <view class="themeItem">
-    <navigator :url="'/pages/classlist/classlist?id='+item._id+'&name='+item.name" class="box" v-if="!isMore" >
-      <image class="pic" :src="item.picurl" mode="aspectFill"></image>
-      <view class="mask">{{item.name}}</view>
-      <view class="tab">{{time(item.updateTime)}}前更新</view>
-    </navigator>
-
-    <navigator url="/pages/classlist/classlist" class="box more" v-if="isMore">
-      <image class="pic" src="../../common/image/more.jpg" mode="aspectFill"></image>
-      <view class="mask">
-        <uni-icons type="more-filled" size="34" color="#fff"></uni-icons>
-        <view class="text">更多</view>
-      </view>
-    </navigator>
+  <view class="themeItem" @click="handleClick">
+    <view class="box">
+      <image class="pic" :src="thumbUrl" mode="aspectFill" lazy-load></image>
+    </view>
   </view>
 </template>
 
 <script setup>
-  import {time} from '@/utils/common.js'
-  defineProps({
-    isMore:{
-      type: Boolean,
-      dufault: false
-    },
+  import { computed } from 'vue'
+  const props = defineProps({
     item:{
-      tyle: Object,
-      default(){
-        return {
-          name:'默认名称',
-          picurl:"../../common/images/classify1.jpg",
-          updateTime:Date.now() - 1000*60*60*5
-        }
-      }
+      type: Object,
     },
+  })
+
+  const emit = defineEmits(['click'])
+
+  const handleClick = () => {
+    emit('click', props.item)
+  }
+
+  // 转换为缩略图 URL (400x600)
+  const thumbUrl = computed(() => {
+    const url = props.item?.download_url || ''
+    return url.replace(/\/id\/(\d+)\/\d+\/\d+/, '/id/$1/400/600')
   })
 </script>
 

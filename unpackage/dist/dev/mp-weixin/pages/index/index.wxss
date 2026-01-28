@@ -23,23 +23,55 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.home .banner.data-v-1cf27b2a {
-  width: 750rpx;
-  padding: 30rpx 0;
+.icon3.data-v-1cf27b2a {
+  font-size: 36rpx;
 }
-.home .banner swiper.data-v-1cf27b2a {
-  width: 750rpx;
-  height: 340rpx;
+.refresh-btn.data-v-1cf27b2a {
+  display: flex;
+  align-items: center;
+  gap: 5rpx;
+  transition: opacity 0.2s;
 }
-.home .banner swiper-item.data-v-1cf27b2a {
+.refresh-btn .icon3.data-v-1cf27b2a {
+  transition: transform 0.3s ease;
+  margin-top: 5rpx;
+}
+.refresh-btn-hover.data-v-1cf27b2a {
+  opacity: 0.6;
+}
+.refresh-btn-hover .icon3.data-v-1cf27b2a {
+  transform: rotate(180deg);
+}
+.home .home-filter.data-v-1cf27b2a {
+  display: flex;
   width: 100%;
-  height: 100%;
-  padding: 0 30rpx;
+  height: 160rpx;
+  align-items: center;
+  padding: 0rpx 90rpx;
+  justify-content: space-between;
+  margin-top: 50rpx;
 }
-.home .banner swiper-item image.data-v-1cf27b2a {
-  width: 100%;
-  height: 100%;
-  border-radius: 10rpx;
+.home .home-filter .item.data-v-1cf27b2a {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.home .home-filter .item .home-filter-item-icon.data-v-1cf27b2a {
+  background-color: #282828;
+  border-radius: 13rpx;
+  height: 60rpx;
+  width: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home .home-filter .item .home-filter-item-icon .material-symbols-outlined.data-v-1cf27b2a {
+  font-size: 50rpx;
+}
+.home .home-filter .item .home-filter-text.data-v-1cf27b2a {
+  margin-top: 5rpx;
+  font-size: 25rpx;
+  text-align: center;
 }
 .home .notice.data-v-1cf27b2a {
   width: 690rpx;
@@ -57,10 +89,10 @@
   align-items: center;
 }
 .home .notice .left.data-v-1cf27b2a  .uni-icons {
-  color: #28B389 !important;
+  color: #764ba2 !important;
 }
 .home .notice .left .text.data-v-1cf27b2a {
-  color: #28B389;
+  color: #764ba2;
   font-size: 28rpx;
   font-weight: 600;
 }
@@ -88,10 +120,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #28B389;
+  color: #764ba2;
 }
 .home .select .date.data-v-1cf27b2a  .uni-icons {
-  color: #28B389 !important;
+  color: #764ba2 !important;
 }
 .home .select .center.data-v-1cf27b2a {
   width: 720rpx;

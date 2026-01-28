@@ -17,7 +17,6 @@
 <script setup>
   import {ref} from 'vue'
   import {onLoad,onReachBottom} from "@dcloudio/uni-app"
-  import {apiwall} from '@/api/apis.js'
   const queryParams = {pageNum:1,pagesize:12}
 const wallList = ref([])
 const noData = ref(false)
@@ -36,12 +35,7 @@ onReachBottom(()=>{
   getwall()
   
 })
-  const getwall = async()=>{
-  let res = await apiwall(queryParams)
-  if(queryParams.pagesize > res.data.length) noData.value = true
-  wallList.value = [...wallList.value,...res.data]
-  uni.setStorageSync("storgwallList", wallList.value)
-  }
+
   
 </script>
 

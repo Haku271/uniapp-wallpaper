@@ -22,10 +22,15 @@
   margin-top: 30rpx;
   padding-bottom: 35rpx;
   .name{
-  font-weight: 500;
-  font-size: 40rpx;
+  font-size: 30rpx;
   }
   .custom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rpx;
+    text-align: center;
+    line-height: 20rpx;
   }
 }
 </style>

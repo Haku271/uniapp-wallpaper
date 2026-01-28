@@ -13,8 +13,10 @@ app.$mount()
 
 // #ifdef VUE3
 import { createSSRApp } from 'vue'
+import MescrollEmpty from '@/uni_modules/mescroll-uni/components/mescroll-empty/mescroll-empty.vue'
 export function createApp() {
   const app = createSSRApp(App)
+  app.component('mescroll-empty', MescrollEmpty)
   return {
     app
   }

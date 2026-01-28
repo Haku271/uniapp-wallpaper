@@ -1,31 +1,27 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const URL = "https://tea.qingnian8.com/api/bizhi/";
+const URL = "https://picsum.photos";
 const request = (config = {}) => {
-  let { url, data, header = {}, method = "" } = config;
+  let { url } = config;
   url = URL + url;
-  header["access-key"] = "283216";
   return new Promise((resolve, reject) => {
     common_vendor.index.request({
       url,
-      data,
-      header,
-      method,
       success: (res) => {
-        if (res.data.errCode === 0) {
-          resolve(res.data);
-        } else if (res.data.errCode === 400) {
+        if (res.statusCode === 200) {
+          resolve(res);
+        } else if (res.statusCode === 400) {
           common_vendor.index.showModal({
             title: "错误提示",
-            content: res.data.errMsg,
+            content: res.errMsg,
             showCancel: false
           });
         } else {
           common_vendor.index.showToast({
-            title: res.data.errMsg,
+            title: res.errMsg,
             icon: "none"
           });
-          reject(res.data);
+          reject(res);
         }
       },
       fail: (err) => {

@@ -1,87 +1,174 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app",
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "uni-app",
         "navigationStyle": "custom"
-			}
-		},
-		{
-		  "path" : "components/common-title/common-title",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : ""
-		  }
-		},
-		{
-		  "path" : "pages/classify/classify",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : "分类",
+      }
+    },
+    {
+      "path": "pages/classify/classify",
+      "style": {
+        "navigationBarTitleText": "分类",
         "navigationStyle": "custom"
-		  }
-		},
-		{
-		  "path" : "pages/user/user",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : "我的",
+      }
+    },
+    {
+      "path": "pages/user/user",
+      "style": {
+        "navigationBarTitleText": "我的",
         "navigationStyle": "custom"
-		  }
-		},
-		{
-		  "path" : "pages/classlist/classlist",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : "分类列表"
-		  }
-		},
-		{
-		  "path" : "pages/preview/preview",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : "",
-        "navigationStyle": "custom"
-		  }
-		},
-		{
-		  "path" : "pages/notice/notice",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : "公告列表"
-		  }
-		},
-		{
-		  "path" : "pages/notice/detail",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : ""
-		  }
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
-    "navigationStyle": "custom"
+      }
 	},
+	{
+		"path": "pages/popular/popular",
+		"style": {
+			"navigationBarTitleText": ""
+		}
+	}
+  ],
+  "subPackages": [
+    {
+      "root": "pages/preview",
+      "pages": [
+        {
+          "path": "preview",
+          "style": {
+            "navigationBarTitleText": "",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/classify-edit",
+      "pages": [
+        {
+          "path": "EditImages",
+          "style": {
+            "navigationBarTitleText": "",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/catImg",
+      "pages": [
+        {
+          "path": "catImg",
+          "style": {
+            "navigationBarTitleText": "",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/search",
+      "pages": [
+        {
+          "path": "search",
+          "style": {
+            "navigationBarTitleText": "",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/classify-text",
+      "pages": [
+        {
+          "path": "classify-text",
+          "style": {
+            "navigationBarTitleText": "",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/login",
+      "pages": [
+        {
+          "path": "login",
+          "style": {
+            "navigationBarTitleText": "登录",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/favorite",
+      "pages": [
+        {
+          "path": "favorite",
+          "style": {
+            "navigationBarTitleText": "我的收藏",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/download",
+      "pages": [
+        {
+          "path": "download",
+          "style": {
+            "navigationBarTitleText": "下载记录",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/agreement",
+      "pages": [
+        {
+          "path": "service",
+          "style": {
+            "navigationBarTitleText": "用户服务协议"
+          }
+        },
+        {
+          "path": "privacy",
+          "style": {
+            "navigationBarTitleText": "隐私政策"
+          }
+        }
+      ]
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#ffff",
+    "navigationStyle": "custom"
+  },
   "tabBar": {
-    "color": "#9799a5",
-    "selectedColor":"#28b389",
+    "color": "#fff",
+    "selectedColor": "#A081Ea",
+    "backgroundColor": "#000",
     "list": [
       {
-        "text": "推荐",
+        "text": "壁纸",
         "pagePath": "pages/index/index",
         "iconPath": "static/tabBar/home.png",
         "selectedIconPath": "static/tabBar/home-h.png"
-      },{
-        "text": "分类",
+      },
+      {
+        "text": "AI生成",
         "pagePath": "pages/classify/classify",
-        "iconPath": "static/tabBar/classify.png",
-        "selectedIconPath": "static/tabBar/classify-h.png"
-      },{
+        "iconPath": "static/tabBar/ai.png",
+        "selectedIconPath": "static/tabBar/ai-h.png"
+      },
+      {
         "text": "我的",
         "pagePath": "pages/user/user",
         "iconPath": "static/tabBar/user.png",
@@ -89,5 +176,5 @@
       }
     ]
   },
-	"uniIdRouter": {}
+  "uniIdRouter": {}
 }

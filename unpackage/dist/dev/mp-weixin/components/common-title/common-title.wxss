@@ -32,6 +32,13 @@
   padding-bottom: 35rpx;
 }
 .title .name {
-  font-weight: 500;
-  font-size: 40rpx;
+  font-size: 30rpx;
+}
+.title .custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rpx;
+  text-align: center;
+  line-height: 20rpx;
 }

@@ -23,10 +23,89 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.classify.data-v-6bcfa975 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15rpx;
-  margin: 33rpx 30rpx;
-  padding-bottom: 33rpx;
+.image.data-v-6bcfa975 {
+  height: 13vh;
+  width: 100vw;
+  background-color: #1a1a1a;
+  border-radius: 30rpx 30rpx 0 0;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.image .item.data-v-6bcfa975 {
+  display: flex;
+}
+.image .item image.data-v-6bcfa975 {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 12rpx;
+}
+.image .item .icon2.data-v-6bcfa975 {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 12rpx;
+  color: #fff;
+}
+.image .item .item-text.data-v-6bcfa975 {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar.data-v-6bcfa975 {
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 40rpx;
+}
+.generate.data-v-6bcfa975 {
+  width: 100%;
+}
+.generate .generate-cardBox.data-v-6bcfa975 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.generate .generate-cardBox-title.data-v-6bcfa975 {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 12rpx;
+}
+.generate .generate-cardBox-card.data-v-6bcfa975 {
+  position: relative;
+  width: 90vw;
+  height: 900rpx;
+  border-radius: 30rpx;
+  background-size: cover;
+  background-position: center;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1), inset 0 0 0 1rpx rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: end;
+}
+.generate .generate-cardBox-card .but-box.data-v-6bcfa975 {
+  display: flex;
+  padding: 12rpx;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16rpx;
+}
+.generate .generate-cardBox-card .but-box .but.data-v-6bcfa975 {
+  border-radius: 30rpx;
+  background-color: #262626;
+  height: 80rpx;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rpx;
+}
+.generate .generate-cardBox-card .but-box .but .icon1.data-v-6bcfa975 {
+  width: 40rpx;
+  height: 40rpx;
 }

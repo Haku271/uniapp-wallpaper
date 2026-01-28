@@ -1,135 +1,172 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const utils_sys = require("../../utils/sys.js");
+const utils_favorite = require("../../utils/favorite.js");
+const utils_download = require("../../utils/download.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  const _easycom_uni_dateformat2 = common_vendor.resolveComponent("uni-dateformat");
-  const _easycom_uni_rate2 = common_vendor.resolveComponent("uni-rate");
-  const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
-  (_easycom_uni_icons2 + _easycom_uni_dateformat2 + _easycom_uni_rate2 + _easycom_uni_popup2)();
+  _easycom_uni_icons2();
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
-const _easycom_uni_dateformat = () => "../../uni_modules/uni-dateformat/components/uni-dateformat/uni-dateformat.js";
-const _easycom_uni_rate = () => "../../uni_modules/uni-rate/components/uni-rate/uni-rate.js";
-const _easycom_uni_popup = () => "../../uni_modules/uni-popup/components/uni-popup/uni-popup.js";
 if (!Math) {
-  (_easycom_uni_icons + _easycom_uni_dateformat + _easycom_uni_rate + _easycom_uni_popup)();
+  _easycom_uni_icons();
 }
 const _sfc_main = {
   __name: "preview",
   setup(__props) {
     const mask = common_vendor.ref(true);
-    const infopopup = common_vendor.ref(null);
-    const starpopup = common_vendor.ref(null);
-    const userstar = common_vendor.ref(0);
+    common_vendor.ref(null);
+    common_vendor.ref(null);
     const wallList = common_vendor.ref([]);
-    const storgwallList = common_vendor.index.getStorageSync("storgwallList") || [];
-    wallList.vallue = storgwallList.map((item) => {
-      return {
+    const current = common_vendor.ref(null);
+    const currentIndex = common_vendor.ref(0);
+    const isFavorited = common_vendor.ref(false);
+    const isDownloaded = common_vendor.ref(false);
+    common_vendor.onLoad((e) => {
+      const id = String(e.id);
+      current.value = id;
+      const storgwallList = common_vendor.index.getStorageSync("storgwallList") || [];
+      wallList.value = storgwallList.map((item) => ({
         ...item,
-        picurl: item.smallPicurl.replace("_small.webp", ".jpg")
-      };
+        picurl: item.download_url
+      }));
+      const index = wallList.value.findIndex(
+        (item) => String(item.id) === id
+      );
+      if (index !== -1) {
+        currentIndex.value = index;
+      }
+      checkFavoriteStatus();
+      checkDownloadStatus();
     });
-    common_vendor.index.__f__("log", "at pages/preview/preview.vue:114", wallList.vallue);
+    const onSwiperChange = (e) => {
+      currentIndex.value = e.detail.current;
+      checkFavoriteStatus();
+      checkDownloadStatus();
+    };
+    const onSwiperTransition = (e) => {
+    };
+    const checkFavoriteStatus = () => {
+      const currentImage = wallList.value[currentIndex.value];
+      if (currentImage) {
+        isFavorited.value = utils_favorite.isFavorite(currentImage);
+      }
+    };
+    const checkDownloadStatus = () => {
+      const currentImage = wallList.value[currentIndex.value];
+      if (currentImage) {
+        isDownloaded.value = utils_download.isDownloaded(currentImage);
+      }
+    };
+    const toggleFavorite = () => {
+      const currentImage = wallList.value[currentIndex.value];
+      if (!currentImage)
+        return;
+      const newState = utils_favorite.toggleFavorite(currentImage);
+      isFavorited.value = newState;
+      if (common_vendor.index.vibrateShort) {
+        common_vendor.index.vibrateShort();
+      }
+    };
+    const downloadFile = () => {
+      const currentImage = wallList.value[currentIndex.value];
+      if (!currentImage || !currentImage.picurl) {
+        common_vendor.index.showToast({
+          title: "图片不存在",
+          icon: "none"
+        });
+        return;
+      }
+      common_vendor.index.showLoading({
+        title: "下载中..."
+      });
+      common_vendor.index.downloadFile({
+        url: currentImage.picurl,
+        success: (res) => {
+          if (res.statusCode === 200) {
+            common_vendor.index.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: () => {
+                common_vendor.index.hideLoading();
+                utils_download.addDownload(currentImage);
+                isDownloaded.value = true;
+                common_vendor.index.showToast({
+                  title: "已保存到相册",
+                  icon: "success"
+                });
+              },
+              fail: (err) => {
+                common_vendor.index.hideLoading();
+                if (err.errMsg.includes("auth")) {
+                  common_vendor.index.showModal({
+                    title: "提示",
+                    content: "需要您授权保存相册权限",
+                    success: (modalRes) => {
+                      if (modalRes.confirm) {
+                        common_vendor.index.openSetting();
+                      }
+                    }
+                  });
+                } else {
+                  common_vendor.index.showToast({
+                    title: "保存失败",
+                    icon: "none"
+                  });
+                }
+              }
+            });
+          } else {
+            common_vendor.index.hideLoading();
+            common_vendor.index.showToast({
+              title: "下载失败",
+              icon: "none"
+            });
+          }
+        },
+        fail: (err) => {
+          common_vendor.index.hideLoading();
+          common_vendor.index.__f__("error", "at pages/preview/preview.vue:206", "下载失败:", err);
+          common_vendor.index.showToast({
+            title: "下载失败",
+            icon: "none"
+          });
+        }
+      });
+    };
     const hide = () => {
-      common_vendor.index.__f__("log", "at pages/preview/preview.vue:117", mask.value);
+      common_vendor.index.__f__("log", "at pages/preview/preview.vue:216", mask.value);
       mask.value = !mask.value;
     };
     const back = () => {
       common_vendor.index.navigateBack();
     };
-    const infoopen = () => {
-      infopopup.value.open("bottom");
-    };
-    const close = () => {
-      infopopup.value.close();
-      starpopup.value.close();
-    };
-    const staropen = () => {
-      starpopup.value.open();
-    };
-    const submit = () => {
-      starpopup.value.close();
-    };
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: common_vendor.f(wallList.value, (item, k0, i0) => {
+        a: common_vendor.f(wallList.value, (item, index, i0) => {
           return {
-            a: common_vendor.o(hide, item._id),
+            a: common_vendor.o(hide, item.id),
             b: item.picurl,
-            c: item._id
+            c: item.id,
+            d: common_vendor.n(index === currentIndex.value ? "swiper-item-active" : "")
           };
         }),
-        b: mask.value
+        b: common_vendor.o(onSwiperChange),
+        c: common_vendor.o(onSwiperTransition),
+        d: currentIndex.value,
+        e: mask.value
       }, mask.value ? {
-        c: common_vendor.p({
+        f: common_vendor.p({
           type: "back",
           size: "20",
           color: "#fff"
         }),
-        d: common_vendor.o(back),
-        e: common_vendor.unref(utils_sys.statusBarHeight)() + "px",
-        f: common_vendor.t(wallList.value.length),
-        g: common_vendor.p({
-          date: Date.now(),
-          format: "hh:mm"
-        }),
-        h: common_vendor.p({
-          date: Date.now(),
-          format: "MM月dd日"
-        }),
-        i: common_vendor.p({
-          type: "info",
-          size: "28"
-        }),
-        j: common_vendor.o(infoopen),
-        k: common_vendor.p({
-          type: "star",
-          size: "28"
-        }),
-        l: common_vendor.o(staropen),
-        m: common_vendor.p({
-          type: "download",
-          size: "24"
-        })
-      } : {}, {
-        n: common_vendor.p({
-          type: "closeempty",
-          size: "18"
-        }),
-        o: common_vendor.o(close),
-        p: common_vendor.p({
-          value: "5",
-          readonly: true,
-          touchable: true,
-          size: "16"
-        }),
-        q: common_vendor.f(3, (item, k0, i0) => {
-          return {};
-        }),
-        r: common_vendor.sr(infopopup, "2dad6c07-6", {
-          "k": "infopopup"
-        }),
-        s: common_vendor.p({
-          type: "bottom"
-        }),
-        t: common_vendor.p({
-          type: "closeempty",
-          size: "18"
-        }),
-        v: common_vendor.o(close),
-        w: common_vendor.o(($event) => userstar.value = $event),
-        x: common_vendor.p({
-          allowHalf: true,
-          modelValue: userstar.value
-        }),
-        y: common_vendor.t(userstar.value),
-        z: common_vendor.o(submit),
-        A: !userstar.value,
-        B: common_vendor.sr(starpopup, "2dad6c07-9", {
-          "k": "starpopup"
-        })
-      });
+        g: common_vendor.o(back),
+        h: common_vendor.unref(utils_sys.statusBarHeight)() + "px",
+        i: common_vendor.o(downloadFile),
+        j: common_vendor.t(isFavorited.value ? "favorite" : "favorite_border"),
+        k: isFavorited.value ? 1 : "",
+        l: common_vendor.o(toggleFavorite)
+      } : {});
     };
   }
 };

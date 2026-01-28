@@ -29,33 +29,30 @@
   left: 0;
   width: 100%;
   z-index: 10;
-  background: linear-gradient(to bottom, transparent, #fff 400rpx), linear-gradient(to right, #beecd8 20%, #F4E2D8);
+  background-color: #000;
+  color: #fff;
 }
 .navbar .titleBar.data-v-412fc155 {
   display: flex;
   padding: 0 30rpx;
   align-items: center;
 }
-.navbar .titleBar .title.data-v-412fc155 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #000;
-}
 .navbar .titleBar .search.data-v-412fc155 {
-  width: 220rpx;
-  height: 50rpx;
-  border-radius: 60rpx;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid #fff;
-  margin-left: 30rpx;
-  color: #999;
+  width: 60vw;
+  height: 60rpx;
+  border-radius: 20rpx;
+  background: #262626;
+  color: #747474;
   font-size: 28rpx;
   display: flex;
   align-items: center;
 }
-.navbar .titleBar .search .icon.data-v-412fc155 {
-  margin-left: 5rpx;
+.navbar .titleBar .search .material-symbols-outlined.data-v-412fc155 {
+  font-size: 35rpx;
+  margin-left: 10rpx;
 }
 .navbar .titleBar .search .text.data-v-412fc155 {
   padding-left: 10rpx;
+  text-align: center;
+  line-height: 90rpx;
 }

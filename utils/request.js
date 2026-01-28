@@ -1,29 +1,25 @@
-const URL = 'https://tea.qingnian8.com/api/bizhi/'
+const URL = 'https://picsum.photos'
 export const request=(config={})=>{
-  let {url,data,header={},method=''} = config
+  let {url} = config
   url = URL + url
-  header['access-key'] = '283216'
   return new Promise((resolve,reject)=>{
     uni.request({
       url,
-      data,
-      header,
-      method,
       success:res=>{
-        if(res.data.errCode===0){
-          resolve(res.data)
-        }else if(res.data.errCode===400){
+        if (res.statusCode === 200) {
+          resolve(res)
+        } else if (res.statusCode === 400) {
           uni.showModal({
-            title:'错误提示',
-            content:res.data.errMsg,
-            showCancel:false
+            title: '错误提示',
+            content: res.errMsg,
+            showCancel: false,
           })
-        }else{
+        } else {
           uni.showToast({
-            title:res.data.errMsg,
-            icon:'none'
+            title: res.errMsg,
+            icon: 'none',
           })
-          reject(res.data)
+          reject(res)
         }
         
       },

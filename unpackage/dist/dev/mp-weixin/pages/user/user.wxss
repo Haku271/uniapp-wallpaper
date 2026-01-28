@@ -25,71 +25,64 @@
 /* 文章场景相关 */
 .user .UInfo.data-v-0f7520f0 {
   display: flex;
+  padding: 30rpx;
+  gap: 30rpx;
   align-items: center;
+}
+.user .UInfo .avatar .icon1.data-v-0f7520f0 {
+  height: 240rpx;
+  width: 240rpx;
+  font-size: 240rpx;
+  border-radius: 50%;
+  color: #6836dd;
+}
+.user .UInfo .info.data-v-0f7520f0 {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+.user .UInfo .info .data.data-v-0f7520f0 {
+  display: flex;
+  gap: 40rpx;
+}
+.user .UInfo .info .data .item.data-v-0f7520f0 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user .UInfo .info .login.data-v-0f7520f0 {
+  font-size: 30rpx;
+  color: #fff;
+  background-color: #262626;
+  border-radius: 30rpx;
+  padding: 15rpx;
+  width: 160rpx;
+  text-align: center;
+}
+.user .tool.data-v-0f7520f0 {
+  padding: 30rpx;
+  display: flex;
   flex-direction: column;
 }
-.user .UInfo .avatar.data-v-0f7520f0 {
-  margin-top: 200rpx;
+.user .tool-title.data-v-0f7520f0 {
+  font-size: 35rpx;
 }
-.user .UInfo .avatar image.data-v-0f7520f0 {
-  height: 160rpx;
-  width: 160rpx;
-  border-radius: 50%;
-}
-.user .UInfo .ip.data-v-0f7520f0 {
-  font-size: 44rpx;
-  color: #333;
-  padding: 20rpx 0 5rpx;
-}
-.user .UInfo .from.data-v-0f7520f0 {
-  font-size: 28rpx;
-  color: #ababab;
-}
-.user .Usection.data-v-0f7520f0 {
-  margin: 50rpx 30rpx;
-  width: 690rpx;
-  border: 1px solid #eee;
-  border-radius: 10rpx;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-}
-.user .Usection .list .row.data-v-0f7520f0 {
+.user .tool-list.data-v-0f7520f0 {
+  padding: 40rpx;
   display: flex;
+  flex-direction: column;
+  gap: 60rpx;
+}
+.user .tool-list svg.data-v-0f7520f0 {
+  width: 40rpx;
+  height: 40rpx;
+}
+.user .tool-list-li.data-v-0f7520f0 {
+  all: unset;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 30rpx;
-  height: 100rpx;
-  border-bottom: 1px solid #eee;
-  position: relative;
-  background: #fff;
-}
-.user .Usection .list .row.data-v-0f7520f0:last-child {
-  border-bottom: 0;
-}
-.user .Usection .list .row a.navigator-wrap.data-v-0f7520f0 {
+  gap: 20rpx;
   display: flex;
 }
-.user .Usection .list .row button.data-v-0f7520f0 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
-.user .Usection .list .row .left.data-v-0f7520f0 {
-  display: flex;
-  align-items: center;
-}
-.user .Usection .list .row .left .text.data-v-0f7520f0 {
-  margin: 0 24rpx;
-  color: #666;
-}
-.user .Usection .list .row .right.data-v-0f7520f0 {
-  display: flex;
-  align-items: center;
-}
-.user .Usection .list .row .right .text.data-v-0f7520f0 {
-  margin: 0 10rpx;
-  color: #aaa;
-  font-size: 28rpx;
+.user .tool-list-li .icon2.data-v-0f7520f0 {
+  font-size: 45rpx;
 }

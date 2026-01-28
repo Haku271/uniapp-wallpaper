@@ -1,39 +1,57 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const api_apis = require("../../api/apis.js");
 if (!Array) {
   const _easycom_custom_nav_bar2 = common_vendor.resolveComponent("custom-nav-bar");
-  const _easycom_theme_item2 = common_vendor.resolveComponent("theme-item");
-  (_easycom_custom_nav_bar2 + _easycom_theme_item2)();
+  _easycom_custom_nav_bar2();
 }
 const _easycom_custom_nav_bar = () => "../../components/custom-nav-bar/custom-nav-bar.js";
-const _easycom_theme_item = () => "../../components/theme-item/theme-item.js";
 if (!Math) {
-  (_easycom_custom_nav_bar + _easycom_theme_item)();
+  _easycom_custom_nav_bar();
 }
 const _sfc_main = {
   __name: "classify",
   setup(__props) {
-    const classifyList = common_vendor.ref([]);
-    const getclassify = async () => {
-      let res = await api_apis.apiclassify({ pageSize: 20 });
-      classifyList.value = res.data;
+    const images = [
+      "https://picsum.photos/id/64/400/800",
+      // 风格1
+      "https://picsum.photos/id/67/400/800",
+      // 风格2
+      "https://picsum.photos/id/66/400/800"
+      // 风格3
+    ];
+    const currentIndex = common_vendor.ref(0);
+    let timer = null;
+    const img = () => {
+      common_vendor.index.chooseMedia({
+        count: 1,
+        //默认9
+        mediaType: ["image"],
+        sizeType: ["original"],
+        //可以指定是原图还是压缩图，默认二者都有
+        success: function(res) {
+          const path = encodeURIComponent(res.tempFiles[0].tempFilePath);
+          common_vendor.index.navigateTo({ url: `/pages/classify-edit/EditImages?path=${path}` });
+        }
+      });
     };
-    getclassify();
+    const gotoText = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/classify-text/classify-text"
+      });
+    };
+    common_vendor.onMounted(() => {
+      timer = setInterval(() => {
+        currentIndex.value = (currentIndex.value + 1) % images.length;
+      }, 1e3);
+    });
+    common_vendor.onUnmounted(() => {
+      clearInterval(timer);
+    });
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.p({
-          title: "分类"
-        }),
-        b: common_vendor.f(classifyList.value, (item, k0, i0) => {
-          return {
-            a: item._id,
-            b: "6bcfa975-1-" + i0,
-            c: common_vendor.p({
-              item
-            })
-          };
-        })
+        a: common_vendor.o(img),
+        b: common_vendor.o(gotoText),
+        c: `url(${images[currentIndex.value]})`
       };
     };
   }
