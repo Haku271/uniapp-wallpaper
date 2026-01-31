@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 幻境 AI 壁纸微信小程序
 
 ## 简介
@@ -53,3 +54,6 @@
 - 项目依赖 `uni_modules`，请确保 HBuilderX 已安装相关插件支持。
 - 接口地址在 `utils/request.js` 中配置，请根据实际情况修改。
 - 小程序 AppID 在 `manifest.json` 中配置 (`wxd0f3a0c46df8249a`)。
+=======
+壁纸小程序
+>>>>>>> cd2bec32da320974ab50d9519709aadea512b8cd
